@@ -8,7 +8,7 @@
     "compile:watch": "yarn run compile --watch"
   },
   "bin": {
-    "yamltm-convert": "./dist/index.js"
+    "yamltm-convert": "./dist/yamltm-convert.js"
   },
   "repository": {
     "type": "git",
