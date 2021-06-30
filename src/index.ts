@@ -1,4 +1,4 @@
-#!ts-node-script
+#!node
 
 //#region Imports
 

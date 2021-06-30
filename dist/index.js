@@ -1,4 +1,4 @@
-#!ts-node-script
+#!node
 "use strict";
 //#region Imports
 var __importDefault = (this && this.__importDefault) || function (mod) {
