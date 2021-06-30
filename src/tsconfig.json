@@ -1,0 +1,22 @@
+{
+    "extends": "@tsconfig/node14/tsconfig.json",
+    "include": ["./"],
+    "compilerOptions":
+    {
+        "typeRoots":
+        [
+            "../node_modules/@types"
+        ],
+        "skipLibCheck": true,
+        "types": ["node"],
+        "outDir": "../dist",
+
+        "strict": true,
+
+        "pretty":          true,
+        "listEmittedFiles": true,
+
+        "rootDir": ".",
+        "sourceMap": true,
+    }
+}
