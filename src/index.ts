@@ -83,7 +83,7 @@ const EventTypeColor: Record<jsYaml.EventType, c.Chalk> =
     close: c.red.dim
 }
 
-const traceLoadEvent = (function(eventType, state)
+export const traceLoadEvent = (function(eventType, state)
 {
     // Ignore termination chars or weird positions
     if(state.position > state.input.length - 1 || state.input[state.position] === `\u0000`)
@@ -106,7 +106,7 @@ const traceLoadEvent = (function(eventType, state)
     })(state.input.split(/\r?\n/gm))
 } as Defined<jsYaml.LoadOptions['listener']>)
 
-function convertYamlToJsonFile(path: string, outputPath: string)
+export function convertYamlToJsonFile(path: string, outputPath: string)
 {
     const result = buildJsonGrammar(path)
 
@@ -170,7 +170,7 @@ function buildJsonGrammar(yamlFilePath: string): ReturnType<typeof jsYaml.load> 
     }
 }
 
-function replaceExtension(inputBasename: string)
+export function replaceExtension(inputBasename: string)
 {
     if(inputBasename.match(/\.tmlanguage\.yaml$/i))
         return inputBasename.replace(/\.tmlanguage\.yaml$/i, '.tmLanguage.json')
@@ -180,7 +180,7 @@ function replaceExtension(inputBasename: string)
         throw new Error('Failed to match file extension for renaming: ' + inputBasename.split('.', 1)[0])
 }
 
-function startProcessingFile(inputPath: string, config: { outputDir?: string, outputPath?: string } = { })
+export function startProcessingFile(inputPath: string, config: { outputDir?: string, outputPath?: string } = { })
 {
     inputPath = path.resolve(inputPath)
     if(!(fs.existsSync(inputPath)))
@@ -227,25 +227,6 @@ function startProcessingFile(inputPath: string, config: { outputDir?: string, ou
 
     if(!options.wait)
         onChange(inputPath);
-}
-
-// Run if script invoked directly
-if (require.main === module)
-{
-    // If explicit output path given -> one file in and out
-    if('out-file' in options && typeof options['out-file'] === 'string')
-    {
-        startProcessingFile(options['input-file'][0], { outputPath:  options['out-file'] })
-    }
-    // If explicit output dir given, or not -> multiple files
-    else
-    {
-        const config = { outputDir: options['out-dir']}
-        for(const inputPath of options['input-file'])
-        {
-            startProcessingFile(inputPath, config)
-        }
-    }
 }
 
 export { startProcessingFile as init }

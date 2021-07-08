@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.init = void 0;
+exports.init = exports.startProcessingFile = exports.replaceExtension = exports.convertYamlToJsonFile = exports.traceLoadEvent = void 0;
 const fs_1 = __importDefault(require("fs"));
 const chalk_1 = __importDefault(require("chalk"));
 const path_1 = __importDefault(require("path"));
@@ -39,7 +39,7 @@ const EventTypeColor = {
     open: chalk_1.default.green,
     close: chalk_1.default.red.dim
 };
-const traceLoadEvent = function (eventType, state) {
+exports.traceLoadEvent = function (eventType, state) {
     // Ignore termination chars or weird positions
     if (state.position > state.input.length - 1 || state.input[state.position] === `\u0000`)
         return;
@@ -74,6 +74,7 @@ function convertYamlToJsonFile(path, outputPath) {
         return;
     }
 }
+exports.convertYamlToJsonFile = convertYamlToJsonFile;
 //#endregion js-yaml
 /**
  * Attempt to convert input to JSON object and expand variables if defined. Returns resulting object
@@ -86,7 +87,7 @@ function buildJsonGrammar(yamlFilePath) {
             filename: yamlFilePath,
             onWarning,
             ...options_1.default.trace ? {
-                listener: traceLoadEvent
+                listener: exports.traceLoadEvent
             } : {}
         });
         if (!!loaded && typeof loaded === 'object')
@@ -108,6 +109,7 @@ function replaceExtension(inputBasename) {
     else
         throw new Error('Failed to match file extension for renaming: ' + inputBasename.split('.', 1)[0]);
 }
+exports.replaceExtension = replaceExtension;
 function startProcessingFile(inputPath, config = {}) {
     inputPath = path_1.default.resolve(inputPath);
     if (!(fs_1.default.existsSync(inputPath))) {
@@ -142,19 +144,6 @@ function startProcessingFile(inputPath, config = {}) {
     if (!options_1.default.wait)
         onChange(inputPath);
 }
+exports.startProcessingFile = startProcessingFile;
 exports.init = startProcessingFile;
-// Run if script invoked directly
-if (require.main === module) {
-    // If explicit output path given -> one file in and out
-    if ('out-file' in options_1.default && typeof options_1.default['out-file'] === 'string') {
-        startProcessingFile(options_1.default['input-file'][0], { outputPath: options_1.default['out-file'] });
-    }
-    // If explicit output dir given, or not -> multiple files
-    else {
-        const config = { outputDir: options_1.default['out-dir'] };
-        for (const inputPath of options_1.default['input-file']) {
-            startProcessingFile(inputPath, config);
-        }
-    }
-}
 //# sourceMappingURL=index.js.map
