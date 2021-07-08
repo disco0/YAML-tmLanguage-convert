@@ -1,7 +1,7 @@
 {
   "name": "yaml-tm-convert",
   "version": "1.0.0",
-  "description": "Process YAML-tmLanguage files into json",
+  "description": "Process `YAML` TextMate grammar files into the more compatible `JSON` format—includes support for variable expansions, and a watch mode (by default).",
   "main": "dist/index.js",
   "scripts": {
     "compile": "tsc --build ./src/tsconfig.json",
@@ -22,21 +22,21 @@
     "json-tmlanguage",
     "tmlanguage"
   ],
-  "devDependencies": {
-    "@tsconfig/node14": "^1.0.0",
-    "@types/chalk": "^2.2.0",
-    "@types/debug": "^4.1.5",
-    "@types/js-yaml": "^4.0.1",
-    "@types/node": "14",
-    "@types/plist": "^3.0.2",
-    "@types/yargs": "^17.0.0",
+  "dependencies": {
     "chalk": "^4.1.1",
     "chokidar": "^3.5.1",
-    "debug": "^4.3.1",
     "js-yaml": "^4.1.0",
     "plist": "^3.0.2",
     "tsdef": "^0.0.14",
     "yargs": "^17.0.1"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.0",
+    "@types/chalk": "^2.2.0",
+    "@types/js-yaml": "^4.0.1",
+    "@types/node": "14",
+    "@types/plist": "^3.0.2",
+    "@types/yargs": "^17.0.0"
   },
   "author": "disco0",
   "license": "ISC",
