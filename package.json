@@ -27,10 +27,10 @@
     "chokidar": "^3.5.1",
     "js-yaml": "^4.1.0",
     "plist": "^3.0.2",
-    "tsdef": "^0.0.14",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
+    "tsdef": "^0.0.14",
     "@tsconfig/node14": "^1.0.0",
     "@types/chalk": "^2.2.0",
     "@types/js-yaml": "^4.0.1",
